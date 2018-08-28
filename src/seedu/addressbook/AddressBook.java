@@ -478,14 +478,17 @@ public class AddressBook {
 
     /**
      * Retrieves all persons in the full model whose names contain some of the specified keywords.
-     *
+     * Allows names to match keywords if keywords are entered in all lower case or all upper case.
      * @param keywords for searching
      * @return list of persons in full model with name containing some of the keywords
      */
     private static ArrayList<String[]> getPersonsWithNameContainingAnyKeyword(Collection<String> keywords) {
         final ArrayList<String[]> matchedPersons = new ArrayList<>();
         for (String[] person : getAllPersonsInAddressBook()) {
-            final Set<String> wordsInName = new HashSet<>(splitByWhitespace(getNameFromPerson(person)));
+            String nameFromPerson = getNameFromPerson(person);
+            String combinedNameFromPerson = nameFromPerson + " " + nameFromPerson.toLowerCase() + " "
+                                            + nameFromPerson.toUpperCase();
+            final Set<String> wordsInName = new HashSet<>(splitByWhitespace(combinedNameFromPerson));
             if (!Collections.disjoint(wordsInName, keywords)) {
                 matchedPersons.add(person);
             }
