@@ -53,6 +53,10 @@
   find 23912039120
   # matching should be case-sensitive
   find betsy
+  # matching using all lower case
+  find charlie
+  # matching using all upper case
+  find CHARLIE 
 
   # find unique keyword
   find Betsy
