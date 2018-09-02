@@ -485,11 +485,14 @@ public class AddressBook {
     private static ArrayList<String[]> getPersonsWithNameContainingAnyKeyword(Collection<String> keywords) {
         final ArrayList<String[]> matchedPersons = new ArrayList<>();
         for (String[] person : getAllPersonsInAddressBook()) {
-            String nameFromPerson = getNameFromPerson(person);
-            String combinedNameFromPerson = nameFromPerson + " " + nameFromPerson.toLowerCase() + " "
-                                            + nameFromPerson.toUpperCase();
-            final Set<String> wordsInName = new HashSet<>(splitByWhitespace(combinedNameFromPerson));
-            if (!Collections.disjoint(wordsInName, keywords)) {
+            Set<String> wordsInName = new HashSet<>(splitByWhitespace(getNameFromPerson(person)));
+            Set<String> wordsInNameInTwoCases = new HashSet<>();
+            for (String word : wordsInName) {
+                wordsInNameInTwoCases.add(word.toUpperCase());
+                wordsInNameInTwoCases.add(word.toLowerCase());
+            }
+
+            if (!Collections.disjoint(wordsInNameInTwoCases, keywords)) {
                 matchedPersons.add(person);
             }
         }
