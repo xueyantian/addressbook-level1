@@ -486,7 +486,7 @@ public class AddressBook {
         final ArrayList<String[]> matchedPersons = new ArrayList<>();
         for (String[] person : getAllPersonsInAddressBook()) {
             Set<String> wordsInName = new HashSet<>(splitByWhitespace(getNameFromPerson(person)));
-            Set<String> wordsInNameInTwoCases = new HashSet<>();
+            Set<String> wordsInNameInTwoCases = new HashSet<>(wordsInName);
             for (String word : wordsInName) {
                 wordsInNameInTwoCases.add(word.toUpperCase());
                 wordsInNameInTwoCases.add(word.toLowerCase());
